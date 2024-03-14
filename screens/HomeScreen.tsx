@@ -34,6 +34,7 @@ export const HomeScreen = () => {
             >
                 <TrendingMovies data={trending} />
                 <MovieList title='Upcoming' data={upcoming} />
+                <MovieList title='Top Rated' data={topRated} />
             </ScrollView>
         </View>
   );
