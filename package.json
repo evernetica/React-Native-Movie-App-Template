@@ -15,6 +15,7 @@
     "@types/react": "~18.2.45",
     "@types/react-native-snap-carousel": "^3.8.11",
     "expo": "~50.0.13",
+    "expo-linear-gradient": "^12.7.2",
     "expo-status-bar": "~1.11.1",
     "nativewind": "^2.0.11",
     "react": "18.2.0",

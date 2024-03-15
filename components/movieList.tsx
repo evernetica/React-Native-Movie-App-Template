@@ -5,16 +5,18 @@ import {styles} from "../theme/color";
 import {useNavigation} from "@react-navigation/native";
 
 const {width, height} = Dimensions.get('window')
-export const MovieList = ({title, data}) => {
+export const MovieList = ({title, data, hideSeeAll}) => {
     let movieName = 'Ant-Man and the Wasp: Humanitarian';
     const navigation = useNavigation<any>();
   return (
     <View className='mb-8 space-y-4'>
         <View className='mx-4 flex-row justify-between items-center'>
             <Text className='text-white text-xl'>{title}</Text>
-            <TouchableOpacity>
-                <Text style={styles.text}>See all</Text>
-            </TouchableOpacity>
+            {!hideSeeAll &&
+                <TouchableOpacity>
+                    <Text style={styles.text}>See all</Text>
+                </TouchableOpacity>
+            }
         </View>
         <ScrollView
             horizontal
@@ -26,7 +28,7 @@ export const MovieList = ({title, data}) => {
                 return (
                     <TouchableOpacity
                         key={`1+${index}`}
-                        onPress={()=> navigation.navigate('Movie', item)}
+                        onPress={()=> navigation.push('Movie', item)}
                     >
                         <View className='space-y-1 mr-4'>
                             <Image
@@ -40,7 +42,6 @@ export const MovieList = ({title, data}) => {
                                 }
                             </Text>
                         </View>
-
                     </TouchableOpacity>
                 )
             })}
