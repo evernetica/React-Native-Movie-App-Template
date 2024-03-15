@@ -7,9 +7,11 @@ import {ScrollView, TouchableOpacity} from "react-native-gesture-handler";
 import {styles} from "../theme/color";
 import TrendingMovies from "../components/trendingMovies";
 import {MovieList} from "../components/movieList";
+import {useNavigation} from "@react-navigation/native";
 
 const ios = Platform.OS === 'ios';
 export const HomeScreen = () => {
+    const navigation = useNavigation();
     const [trending, setTrending] = useState([1,2,3]);
     const [upcoming, setUpcoming] = useState([1,2,3])
     const [topRated, setTopRated] = useState([1,2,3])
@@ -23,7 +25,7 @@ export const HomeScreen = () => {
                     className='text-white text-3xl font-bold'>
                         <Text style={styles.text}>M</Text>ovies
                     </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Search')}>
                         <MagnifyingGlassIcon size='30' strokeWidth={2} color='white' />
                     </TouchableOpacity>
                 </View>
