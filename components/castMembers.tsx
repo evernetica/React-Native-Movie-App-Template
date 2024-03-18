@@ -2,6 +2,9 @@ import React from 'react';
 import {Image, Text, View} from "react-native";
 import {ScrollView, TouchableOpacity} from "react-native-gesture-handler";
 import {useNavigation} from "@react-navigation/native";
+import {image185} from "../api/moviedb";
+
+import Profile from "../assets/profile.png"
 
 export const CastMembers = ({cast}) => {
     const navigation = useNavigation();
@@ -21,7 +24,7 @@ export const CastMembers = ({cast}) => {
                 cast && cast.map((person: any, index: number) => {
                     return (
                         <TouchableOpacity
-                            key={`1+${index}`}
+                            key={index}
                             className='mr-4 items-center'
                             //@ts-ignore
                             onPress={() => navigation.navigate('Person', person)}
@@ -31,17 +34,17 @@ export const CastMembers = ({cast}) => {
                             >
                                 <Image
                                     className='rounded-2xl h-24 w-20'
-                                    source={require('../assets/icon.png')}
+                                    source={{uri: image185(person?.profile_path || Profile)}}
                                 />
                             </View>
                             <Text className='text-white text-xs mt-1'>
                                 {
-                                    characterName.length > 10 ? characterName.slice(0.10)+'...' : characterName
+                                    person?.character.length > 10 ? person?.character.slice(0,10)+'...' : person?.character
                                 }
                             </Text>
                             <Text className='text-neutral-400 text-xs mt-1'>
                                 {
-                                    personName.length > 10 ? personName.slice(0.10)+'...' : personName
+                                    person?.name.length > 10 ? person?.name.slice(0,10)+'...' : person?.name
                                 }
                             </Text>
                         </TouchableOpacity>

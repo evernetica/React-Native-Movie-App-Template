@@ -49,6 +49,7 @@ export const HomeScreen = () => {
                     <Bars3CenterLeftIcon size='30' strokeWidth={2} color='white' />
                     <Text
                     className='text-white text-3xl font-bold'>
+
                         <Text style={styles.text}>M</Text>ovies
                     </Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Search')}>

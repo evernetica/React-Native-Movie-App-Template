@@ -9,6 +9,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {CastMembers} from "../components/castMembers";
 import {MovieList} from "../components/movieList";
 import {Loading} from "../components/loading";
+import {fetchMovieCredits, fetchMovieDetails, fetchMovieSimilar, image500} from "../api/moviedb";
+import {Movie} from "../types/movie";
+import {CastMember, MovieCredits} from "../types/cast";
+import {MovieSummary, SimilarMoviesResponse} from "../types/similar";
 
 interface Item {
     adult: boolean;
@@ -34,14 +38,61 @@ const topMargin = ios ? '' : 'mt-3';
 export const MovieScreen = () => {
     const navigation = useNavigation();
     const [isFavorite, setIsFavorite] = useState(false);
-    const [cast, setCast] = useState([1,2,3,4,5]);
-    const [similarMovies, setSimilarMovies] = useState([1,2,3,4,5]);
-    const [loading, setLoading] = useState(false)
+    const [cast, setCast] = useState<CastMember[]>([]);
+    const [similarMovies, setSimilarMovies] = useState<MovieSummary[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [movie, setMovie] = useState<Movie>({
+        adult: false,
+        backdrop_path: "",
+        belongs_to_collection: null,
+        budget: 0,
+        genres: [],
+        homepage: "",
+        id: 0,
+        imdb_id: "",
+        original_language: "",
+        original_title: "",
+        overview: "",
+        popularity: 0,
+        poster_path: "",
+        production_companies: [],
+        production_countries: [],
+        release_date: "",
+        revenue: 0,
+        runtime: 0,
+        spoken_languages: [],
+        status: "",
+        tagline: "",
+        title: "",
+        video: false,
+        vote_average: 0,
+        vote_count: 0,
+    });
     const {params: item} = useRoute() as {params: Item};
     useEffect(() => {
-        console.log('itemid', item.id)
+        setLoading(true);
+        console.log('item id', item.id)
+        getMovieDetails(item.id);
+        getMovieCredits(item.id);
+        getMovieSimilar(item.id);
     }, [item]);
-    let movieName = 'Ant-Man and the Wasp: Humanitarian';
+
+    const getMovieDetails = async (id:  string | number) => {
+        const data = await fetchMovieDetails(id);
+        if(data) setMovie(data);
+        setLoading(false);
+    }
+    const getMovieCredits = async (id:  string | number) => {
+        const data = await fetchMovieCredits(id);
+        if(data && data.cast) setCast(data.cast);
+    }
+
+    const getMovieSimilar = async (id:  string | number) => {
+        const data = await fetchMovieSimilar(id);
+        console.log('data similar', data)
+        if(data && data.results) setSimilarMovies(data.results);
+    }
+
     return (
     <ScrollView
         contentContainerStyle={{paddingBottom: 20}}
@@ -80,7 +131,8 @@ export const MovieScreen = () => {
                 ) : (
                     <View>
                         <Image
-                            source={require('../assets/icon.png')}
+                            //@ts_ignore
+                            source={{uri: image500(movie?.poster_path)}}
                             style={{width, height: height*0.55}}
                         />
                         <LinearGradient
@@ -96,24 +148,32 @@ export const MovieScreen = () => {
         </View>
         <View style={{marginTop: -(height*0.09)}} className='space-y-3'>
             <Text className='text-white text-center text-3xl font-bold tracking-wider'>
-                {movieName}
+                {
+                    movie?.title
+                }
             </Text>
-            <Text className='text-neutral-400 font-semibold text-base text-center'>
-                Released · 2020 · 170 min
-            </Text>
+            {
+                movie?.id ? (<Text className='text-neutral-400 font-semibold text-base text-center'>
+                    {movie?.status} · {movie?.release_date.split('-')[0]} · {movie?.runtime} min
+                </Text>) : null
+            }
+
             <View className='flex-row justify-center mx-4 space-x-2'>
-                <Text className='text-neutral-400 font-semibold text-base text-center'>
-                    Action ·
-                </Text>
-                <Text className='text-neutral-400 font-semibold text-base text-center'>
-                    Thrill ·
-                </Text>
-                <Text className='text-neutral-400 font-semibold text-base text-center'>
-                    Comedy ·
-                </Text>
+                {
+                    movie?.genres?.map((genre: any, index) => {
+                        let showDot = index + 1 != movie.genres.length;
+                        return (
+                            <Text className='text-neutral-400 font-semibold text-base text-center'>
+                                {genre?.name}{showDot ? '  ·' : null}
+                            </Text>
+                        )
+                    })
+                }
             </View>
             <Text className='text-neutral-400 mx-4 tracking-wide'>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dignissimos dolorem dolorum et iste modi provident rerum sapiente tenetur voluptatibus.
+                {
+                    movie?.overview
+                }
             </Text>
         </View>
 

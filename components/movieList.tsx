@@ -3,8 +3,7 @@ import {Dimensions, Image, Text, View} from "react-native";
 import {ScrollView, TouchableOpacity} from "react-native-gesture-handler";
 import {styles} from "../theme/color";
 import {useNavigation} from "@react-navigation/native";
-import {image185, image342} from "../api/moviedb";
-import fallBackImage from '../assets/icon.png';
+import {image185} from "../api/moviedb";
 
 const {width, height} = Dimensions.get('window')
 export const MovieList = ({title, data, hideSeeAll}) => {
@@ -33,13 +32,13 @@ export const MovieList = ({title, data, hideSeeAll}) => {
                     >
                         <View className='space-y-1 mr-4'>
                             <Image
-                                source={{uri: image185(item.poster_path || fallBackImage)}}
+                                source={{uri: image185(item.poster_path)}}
                                 className='rounded-3xl'
                                 style={{width: width*0.33, height: height*0.22}}
                             />
                             <Text className='text-neutral-300 ml-1'>
                                 {
-                                    // item.title.length > 14 ? item.title.slice(0,14) + '...' : item.title
+                                    item.title.length > 14 ? item.title.slice(0,14) + '...' : item.title
                                 }
                             </Text>
                         </View>
