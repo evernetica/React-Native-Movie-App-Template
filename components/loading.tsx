@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, Text, View} from "react-native";
+import {Dimensions, View} from "react-native";
 import * as Progress from 'react-native-progress';
 import {theme} from "../theme/color";
 

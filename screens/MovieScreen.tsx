@@ -177,9 +177,9 @@ export const MovieScreen = () => {
             </Text>
         </View>
 
-        <CastMembers cast={cast}/>
+        {cast.length > 0 && <CastMembers cast={cast}/>}
 
-        <MovieList title='Similar Movies' hideSeeAll={true} data={similarMovies} />
+        {similarMovies.length > 0 && <MovieList title='Similar Movies' hideSeeAll={true} data={similarMovies} />}
     </ScrollView>
   );
 };
