@@ -10,7 +10,23 @@ import {CastMembers} from "../components/castMembers";
 import {MovieList} from "../components/movieList";
 import {Loading} from "../components/loading";
 
-
+interface Item {
+    adult: boolean;
+    backdrop_path: string;
+    genre_ids: number[];
+    id: number;
+    media_type: string;
+    original_language: string;
+    original_title: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    release_date: string;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
+}
 
 const {width, height} = Dimensions.get('window')
 const ios = Platform.OS === 'ios';
@@ -21,10 +37,10 @@ export const MovieScreen = () => {
     const [cast, setCast] = useState([1,2,3,4,5]);
     const [similarMovies, setSimilarMovies] = useState([1,2,3,4,5]);
     const [loading, setLoading] = useState(false)
-    // const {param: item} = useRoute();
-    // useEffect(() => {
-    //     //call the movie details api
-    // }, [item]);
+    const {params: item} = useRoute() as {params: Item};
+    useEffect(() => {
+        console.log('itemid', item.id)
+    }, [item]);
     let movieName = 'Ant-Man and the Wasp: Humanitarian';
     return (
     <ScrollView
