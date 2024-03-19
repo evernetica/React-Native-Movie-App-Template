@@ -32,6 +32,8 @@ export const MovieList = ({title, data, hideSeeAll}) => {
                     >
                         <View className='space-y-1 mr-4'>
                             <Image
+                                // @ts-ignore
+                                defaultSource={'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
                                 source={{uri: image185(item.poster_path)}}
                                 className='rounded-3xl'
                                 style={{width: width*0.33, height: height*0.22}}

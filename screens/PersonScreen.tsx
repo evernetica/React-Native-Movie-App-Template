@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Dimensions, Image, Platform, SafeAreaView, Text, View} from "react-native";
 import {ScrollView, TouchableOpacity} from "react-native-gesture-handler";
-import {styles, theme} from "../theme/color";
+import {styles} from "../theme/color";
 import {ChevronLeftIcon} from "react-native-heroicons/outline";
 import {HeartIcon} from "react-native-heroicons/solid";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {MovieList} from "../components/movieList";
 import {Loading} from "../components/loading";
 import {fetchPersonDetails, fetchPersonMovies, image342} from "../api/moviedb";
-import {MovieCast, Person, PersonMovies} from "../types/person";
+import {Person} from "../types/person";
 
 const {width, height} = Dimensions.get('window');
 const ios = Platform.OS === 'ios';
@@ -101,6 +101,8 @@ export const PersonScreen = () => {
                             className='overflow-hidden rounded-full h-72 w-72 items-center border-2 border-neutral-500'
                         >
                             <Image
+                                // @ts-ignore
+                                defaultSource={require('../assets/profile.png')}
                                 source={{uri: image342(person?.profile_path)}}
                                 style={{width: width*0.74, height: height*0.43}}
                             />

@@ -47,12 +47,13 @@ export const HomeScreen = () => {
                 <StatusBar style="light" />
                 <View className="flex-row justify-between items-center mx-4" >
                     <Bars3CenterLeftIcon size='30' strokeWidth={2} color='white' />
-                    <Text
-                    className='text-white text-3xl font-bold'>
-
+                    <Text className='text-white text-3xl font-bold'>
                         <Text style={styles.text}>M</Text>ovies
                     </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+                    <TouchableOpacity
+                        // @ts-ignore
+                        onPress={() => navigation.navigate('Search')}
+                    >
                         <MagnifyingGlassIcon size='30' strokeWidth={2} color='white' />
                     </TouchableOpacity>
                 </View>
@@ -67,8 +68,8 @@ export const HomeScreen = () => {
                     >
                         {trending.length > 0 && <TrendingMovies data={trending} />}
 
-                        <MovieList title='Upcoming' data={upcoming} hideSeeAll={false} />
-                        <MovieList title='Top Rated' data={topRated} hideSeeAll={false} />
+                        <MovieList title='Upcoming' data={upcoming} hideSeeAll={true} />
+                        <MovieList title='Top Rated' data={topRated} hideSeeAll={true} />
                     </ScrollView>
                 )
             }

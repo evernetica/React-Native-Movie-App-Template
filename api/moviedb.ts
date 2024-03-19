@@ -18,9 +18,9 @@ const movieCreditsEndpoint = (id: string | number) => `${apiBaseUrl}/movie/${id}
 const movieSimilarEndpoint = (id: string | number) => `${apiBaseUrl}/movie/${id}/similar?api_key=${apiKey}`;
 const personDetailsEndpoint = (id: string | number) => `${apiBaseUrl}/person/${id}?api_key=${apiKey}`;
 const personMoviesEndpoint = (id: string | number) => `${apiBaseUrl}/person/${id}/movie_credits?api_key=${apiKey}`;
-export const image500 = (path: string | null) => path ? `https://image.tmdb.org/t/p/w500${path}` : null;
-export const image342 = (path: string | null) => path ? `https://image.tmdb.org/t/p/w342${path}` : null;
-export const image185 = (path: string | null) => path ? `https://image.tmdb.org/t/p/w185${path}` : null;
+export const image500 = (path: string) => path ? `https://image.tmdb.org/t/p/w500${path}` : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
+export const image342 = (path: string) => path ? `https://image.tmdb.org/t/p/w342${path}` : require('../assets/profile.png');
+export const image185 = (path: string) => path ? `https://image.tmdb.org/t/p/w185${path}` : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
 
 const apiCall = async (endpoint: string, params: string | IParams) => {
     const options = {

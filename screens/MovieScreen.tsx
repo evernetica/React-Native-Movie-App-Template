@@ -11,8 +11,8 @@ import {MovieList} from "../components/movieList";
 import {Loading} from "../components/loading";
 import {fetchMovieCredits, fetchMovieDetails, fetchMovieSimilar, image500} from "../api/moviedb";
 import {Movie} from "../types/movie";
-import {CastMember, MovieCredits} from "../types/cast";
-import {MovieSummary, SimilarMoviesResponse} from "../types/similar";
+import {CastMember} from "../types/cast";
+import {MovieSummary} from "../types/similar";
 
 interface Item {
     adult: boolean;
@@ -93,6 +93,7 @@ export const MovieScreen = () => {
         if(data && data.results) setSimilarMovies(data.results);
     }
 
+
     return (
     <ScrollView
         contentContainerStyle={{paddingBottom: 20}}
@@ -131,7 +132,8 @@ export const MovieScreen = () => {
                 ) : (
                     <View>
                         <Image
-                            //@ts_ignore
+                            // @ts-ignore
+                            defaultSource={'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'}
                             source={{uri: image500(movie?.poster_path)}}
                             style={{width, height: height*0.55}}
                         />
